@@ -7,11 +7,11 @@ import {
   Label,
   Section,
 } from './ContactForm.styled';
-import { addContacts } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { addContacts } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const initialValues = {
     name: '',
     number: '',
