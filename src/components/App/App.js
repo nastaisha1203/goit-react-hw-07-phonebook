@@ -4,6 +4,7 @@ import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Contacts, Container, Title } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  selectContacts,
   selectError,
   selectFilteredContacts,
   selectIsLoading,
@@ -16,7 +17,8 @@ export const App = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const filterContacts = useSelector(selectFilteredContacts);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilteredContacts);
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -28,14 +30,10 @@ export const App = () => {
       </div>
       <div>
         <Contacts>Contacts</Contacts>
-        {isLoading && <Loader />}
         {error && <b>{error}</b>}
-        {filterContacts.length > 0 && (
-          <>
-            <Filter />
-            <ContactList />
-          </>
-        )}
+        {contacts.length > 0 && <Filter />}
+        {isLoading && <Loader />}
+        {filter.length > 0 && <ContactList />}
       </div>
     </Container>
   );
